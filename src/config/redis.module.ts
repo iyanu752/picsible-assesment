@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import { Global, Logger, Module } from '@nestjs/common';
 import Redis from 'ioredis';
 
 export const REDIS_CLIENT = 'REDIS_CLIENT';
@@ -9,6 +9,7 @@ export const REDIS_CLIENT = 'REDIS_CLIENT';
     {
       provide: REDIS_CLIENT,
       useFactory: () => {
+        const logger = new Logger('RedisModule');
         const retryStrategy = (times: number) => {
           if (times > 3) {
             return null;
@@ -49,15 +50,15 @@ export const REDIS_CLIENT = 'REDIS_CLIENT';
             });
 
         redis.on('error', (error) => {
-          console.error(`Redis connection error: ${error.message}`);
+          logger.error(`Redis connection error: ${error.message}`);
         });
 
         redis.on('connect', () => {
-          console.log('Redis socket connected');
+          logger.log('Redis socket connected');
         });
 
         redis.on('ready', () => {
-          console.log('Redis connection ready');
+          logger.log('Redis connection ready');
         });
 
         return redis;
