@@ -179,18 +179,6 @@ Dashboard response shape:
 }
 ```
 
-## REDIS CACHING STRATEGY
-
-GET /dashboard uses lazy loading:
-
-1. Check Redis for `dashboard:stats`.
-2. On cache hit, return cached stats immediately.
-3. On cache miss, compute stats from `db/orders.json`.
-4. Save the computed stats to Redis with a 60-second TTL.
-
-POST /orders and PATCH /orders/:id/stage invalidate `dashboard:stats` so the next dashboard request recomputes fresh stats.
-
-
 ## ADDITIONAL QUEATION ANSWER
 -Rather than calculating the dashboard stats from oders on every request, i can precompute the stats, cache them in Redis and update or invalidate them when the orders change.
 
