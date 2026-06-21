@@ -43,3 +43,12 @@ we kill the cache entry
 
 so when we try to get the dashboard stats we recompute the fresh stats and recache the data.
 
+
+For the technologies i will be using, I dont want to over engineer the assesment so i will use the following:
+
+-Nest js
+-Redis
+-a JSON file will serve as the database
+( i chose this option so you would not have to no any complicated database setups on your end to test endpoints, you can npm install and start testing right away
+for personal projects i would normally use supabase, Postgresql and prisma ORM mongoDb 
+)
